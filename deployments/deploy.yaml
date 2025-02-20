@@ -1,0 +1,24 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: micktest-deploy
+  name: micktest-deploy
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: micktest-deploy
+  template:
+    metadata:
+      labels:
+        app: micktest-deploy
+    spec:
+      containers:
+        - image: httpd:alpine3.19
+          name: httpd
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 1
+      maxSurge: 1
